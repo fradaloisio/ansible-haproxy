@@ -13,6 +13,6 @@ haproxy_versions_supported:
 haproxy_ppa: "ppa:vbernat/haproxy-{{ haproxy_version}}"
 
 haproxy_src_version: "{{ haproxy_version | regex_replace('([0-9]+.[0-9]+).*','\\1') }}"
-haproxy_src_patch: "{{ '.0' if not haproxy_version | regex_search('[0-9]+.[0-9]+.([0-9]+)','\\1') else ''}}"
+haproxy_src_patch: "{{ '0' if not (haproxy_version | regex_replace('[0-9]+.[0-9]+(.{0,}[0-9]{0,})','\\1')) else (haproxy_version | regex_replace('[0-9]+.[0-9]+.([0-9]+)','\\1')) }}"
 
-haproxy_full_version: "{{ haproxy_src_version | string ~ haproxy_src_patch | string }}"
+haproxy_full_version: "{{ (haproxy_src_version) +'.'+ (haproxy_src_patch) }}"
