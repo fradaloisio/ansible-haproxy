@@ -77,6 +77,17 @@
     remote_src: yes
     mode: '0755'
   when: "'systemd' not in ansible_facts.packages"
+  tags:
+    - haproxy-install-from-source
+
+- name: install | Adding init info to init.d file
+  blockinfile:
+    path: "/etc/init.d/haproxy"
+    block: "{{haproxy_init_info}}"
+    insertafter: "#!/bin/sh"
+  when: "'systemd' not in ansible_facts.packages"
+  tags:
+    - haproxy-install-from-source
 
 - name: install | Service file
   copy:

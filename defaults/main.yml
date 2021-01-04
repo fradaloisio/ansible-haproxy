@@ -90,3 +90,5 @@ haproxy_resolvers: []
 
 # ACL files
 haproxy_acl_files: []
+
+haproxy_init_info: ''
